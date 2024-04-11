@@ -10,14 +10,17 @@ namespace MODotNetCore.ConsoleApp
 {
     internal class AdoDotNetExample
     {
+        SqlConnectionStringBuilder _sqlConnectionStringBuilder = new SqlConnectionStringBuilder
+        {
+            DataSource = "DESKTOP-QIPPQBI\\SQLEXPRESS",
+            InitialCatalog = "DotNetTrainingBatch4",
+            UserID = "sa",
+            Password = "sasa@123"
+        };
         public void Read()
         {
-            SqlConnectionStringBuilder stringBuilder = new SqlConnectionStringBuilder();
-            stringBuilder.DataSource = "DESKTOP-QIPPQBI\\SQLEXPRESS";
-            stringBuilder.InitialCatalog = "DotNetTrainingBatch4";
-            stringBuilder.UserID = "sa";
-            stringBuilder.Password = "sasa@123";
-            SqlConnection con = new SqlConnection(stringBuilder.ConnectionString);
+
+            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
 
@@ -40,6 +43,34 @@ namespace MODotNetCore.ConsoleApp
                 Console.WriteLine("Blog Author => " + dr["BlogAuthor"]);
                 Console.WriteLine("Blog Content => " + dr["BlogContent"]);
             }
+        }
+
+        public void Create()
+        {
+            string title = "International Day of Human Space Flight Observed on 12 April";
+            string author = "David";
+            string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
+This day commemorates a significant milestone in human history:";
+            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            con.Open();
+            Console.WriteLine("Connection Open");
+            string query = @"INSERT INTO [dbo].[Tbl_Blog]
+                    ([BlogTitle],
+                    [BlogAuthor],
+                    [BlogContent])
+              VALUES
+                    (@BlogTitle,
+                    @BlogAuthor,
+                    @BlogContent)";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@BlogTitle", title);
+            cmd.Parameters.AddWithValue("@BlogAuthor", author);
+            cmd.Parameters.AddWithValue("@BlogContent", content);
+            int result = cmd.ExecuteNonQuery();
+
+            con.Close();
+            string message = result > 0 ? "Saving Successful" : "Saving Failed";
+            Console.WriteLine(message);
         }
     }
 }
