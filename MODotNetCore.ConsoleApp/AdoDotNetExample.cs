@@ -118,6 +118,7 @@ This day commemorates a significant milestone in human history:";
             }
 
             #endregion
+
             string query = CommonQuery.DeleteQuery;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@BlogId", blogId);
