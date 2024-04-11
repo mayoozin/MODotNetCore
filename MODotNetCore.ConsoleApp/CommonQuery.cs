@@ -8,7 +8,7 @@ namespace MODotNetCore.ConsoleApp
 {
     internal class CommonQuery
     {
-        public static string SelectQuery = "Select * From Tbl_Blog";
+        public static string SelectQuery = "SELECT * FROM Tbl_Blog";
 
         public static string CreateQuery = @"INSERT INTO [dbo].[Tbl_Blog]
            ([BlogTitle]
