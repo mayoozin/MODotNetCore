@@ -47,7 +47,7 @@ namespace MODotNetCore.ConsoleApp
 
         public void Create()
         {
-            string title = "International Day of Human Space Flight Observed on 12 April";
+            string title = "International Day of Human Space";
             string author = "David";
             string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
 This day commemorates a significant milestone in human history:";
@@ -55,10 +55,10 @@ This day commemorates a significant milestone in human history:";
             con.Open();
             Console.WriteLine("Connection Open");
             string query = @"INSERT INTO [dbo].[Tbl_Blog]
-                    ([BlogTitle],
-                    [BlogAuthor],
-                    [BlogContent])
-              VALUES
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent])
+     VALUES
                     (@BlogTitle,
                     @BlogAuthor,
                     @BlogContent)";
