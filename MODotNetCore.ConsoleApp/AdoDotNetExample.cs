@@ -17,6 +17,7 @@ namespace MODotNetCore.ConsoleApp
             UserID = "sa",
             Password = "sasa@123"
         };
+
         public void Read()
         {
 
@@ -24,15 +25,11 @@ namespace MODotNetCore.ConsoleApp
             con.Open();
             Console.WriteLine("Connection Open");
 
-            #region Read
-
             string query = "Select * From Tbl_Blog";
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
-
-            #endregion
 
             con.Close();
 
@@ -47,8 +44,8 @@ namespace MODotNetCore.ConsoleApp
 
         public void Create()
         {
-            string title = "International Day of Human Space";
-            string author = "David";
+            string title = "Heal The World";
+            string author = "Jsamine Dylan";
             string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
 This day commemorates a significant milestone in human history:";
             SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
@@ -80,9 +77,22 @@ This day commemorates a significant milestone in human history:";
             string author = "David Mamama";
             string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
 This day commemorates a significant milestone in human history:";
+            string message = string.Empty;
             SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
+
+            #region 💕 Check Data 💕
+
+            bool data = GetDataById(blogId);
+            if (!data)
+            {
+                message = "There is no Data!";
+                goto Result;
+            }
+
+            #endregion
+
             string query = @"UPDATE [dbo].[Tbl_Blog]
    SET [BlogTitle] = @BlogTitle
       ,[BlogAuthor] = @BlogAuthor
@@ -96,8 +106,42 @@ This day commemorates a significant milestone in human history:";
             int result = cmd.ExecuteNonQuery();
 
             con.Close();
-            string message = result > 0 ? "Saving Successful" : "Saving Failed";
+            message = result > 0 ? "Update Successful" : "Update Failed";
+            Result:
             Console.WriteLine(message);
+        }
+
+        public void Delete()
+        {
+            string blogId = "1";
+            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            con.Open();
+            Console.WriteLine("Connection Open");
+            string query = @"DELETE FROM [dbo].[Tbl_Blog]
+      WHERE BlogId=@BlogId";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@BlogId", blogId);
+            int result = cmd.ExecuteNonQuery();
+
+            con.Close();
+            string message = result > 0 ? "Delete Successful" : "Delete Failed";
+            Console.WriteLine(message);
+        }
+
+        public bool GetDataById(string blogId)
+        {
+            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            con.Open();
+            Console.WriteLine("Connection Open");
+            string query = @"SELECT * FROM [dbo].[Tbl_Blog]
+      WHERE BlogId=@blogId";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@blogId", blogId);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            if (dt.Rows.Count == 0) return false;
+            return true;
         }
     }
 }
