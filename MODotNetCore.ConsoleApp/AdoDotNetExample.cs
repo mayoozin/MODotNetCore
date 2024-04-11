@@ -25,7 +25,7 @@ namespace MODotNetCore.ConsoleApp
             con.Open();
             Console.WriteLine("Connection Open");
 
-            string query = "Select * From Tbl_Blog";
+            string query = CommonQuery.SelectQuery;
             SqlCommand cmd = new SqlCommand(query, con);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -51,14 +51,7 @@ This day commemorates a significant milestone in human history:";
             SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
-            string query = @"INSERT INTO [dbo].[Tbl_Blog]
-           ([BlogTitle]
-           ,[BlogAuthor]
-           ,[BlogContent])
-     VALUES
-                    (@BlogTitle,
-                    @BlogAuthor,
-                    @BlogContent)";
+            string query = CommonQuery.CreateQuery;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@BlogTitle", title);
             cmd.Parameters.AddWithValue("@BlogAuthor", author);
@@ -93,11 +86,7 @@ This day commemorates a significant milestone in human history:";
 
             #endregion
 
-            string query = @"UPDATE [dbo].[Tbl_Blog]
-   SET [BlogTitle] = @BlogTitle
-      ,[BlogAuthor] = @BlogAuthor
-      ,[BlogContent] = @BlogContent
- WHERE BlogId=@BlogId";
+            string query = CommonQuery.UpdateQuery;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@BlogId", blogId);
             cmd.Parameters.AddWithValue("@BlogTitle", title);
@@ -114,17 +103,29 @@ This day commemorates a significant milestone in human history:";
         public void Delete()
         {
             string blogId = "1";
+            string message = string.Empty;
             SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
-            string query = @"DELETE FROM [dbo].[Tbl_Blog]
-      WHERE BlogId=@BlogId";
+
+            #region 💕 Check Data 💕
+
+            bool data = GetDataById(blogId);
+            if (!data)
+            {
+                message = "There is no Data!";
+                goto Result;
+            }
+
+            #endregion
+            string query = CommonQuery.DeleteQuery;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@BlogId", blogId);
             int result = cmd.ExecuteNonQuery();
 
             con.Close();
-            string message = result > 0 ? "Delete Successful" : "Delete Failed";
+            message = result > 0 ? "Delete Successful" : "Delete Failed";
+            Result:
             Console.WriteLine(message);
         }
 
@@ -133,8 +134,7 @@ This day commemorates a significant milestone in human history:";
             SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
-            string query = @"SELECT * FROM [dbo].[Tbl_Blog]
-      WHERE BlogId=@blogId";
+            string query = CommonQuery.GetDataById;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@blogId", blogId);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
