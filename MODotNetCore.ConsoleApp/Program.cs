@@ -6,7 +6,8 @@ using System.Data.SqlClient;
 Console.WriteLine("Hello, World!");
 
 AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
-adoDotNetExample.Read();
-//adoDotNetExample.Create();
+//adoDotNetExample.Read();
+//adoDotNetExample.Update();
+adoDotNetExample.Update();
 
 Console.ReadLine();
