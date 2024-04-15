@@ -21,24 +21,26 @@ namespace MODotNetCore.ConsoleApp
         public void Read()
         {
 
-            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
-            con.Open();
-            Console.WriteLine("Connection Open");
-
-            string query = CommonQuery.SelectQuery;
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-
-            con.Close();
-
-            foreach (DataRow dr in dt.Rows)
+            using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
-                Console.WriteLine("Blog Id => " + dr["BlogId"]);
-                Console.WriteLine("Blog Title => " + dr["BlogTitle"]);
-                Console.WriteLine("Blog Author => " + dr["BlogAuthor"]);
-                Console.WriteLine("Blog Content => " + dr["BlogContent"]);
+                con.Open();
+                Console.WriteLine("Connection Open");
+
+                string query = CommonQuery.SelectQuery;
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                con.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Console.WriteLine("Blog Id => " + dr["BlogId"]);
+                    Console.WriteLine("Blog Title => " + dr["BlogTitle"]);
+                    Console.WriteLine("Blog Author => " + dr["BlogAuthor"]);
+                    Console.WriteLine("Blog Content => " + dr["BlogContent"]);
+                }
             }
         }
 
@@ -48,17 +50,21 @@ namespace MODotNetCore.ConsoleApp
             string author = "Jsamine Dylan";
             string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
 This day commemorates a significant milestone in human history:";
-            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
-            con.Open();
-            Console.WriteLine("Connection Open");
-            string query = CommonQuery.CreateQuery;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@BlogTitle", title);
-            cmd.Parameters.AddWithValue("@BlogAuthor", author);
-            cmd.Parameters.AddWithValue("@BlogContent", content);
-            int result = cmd.ExecuteNonQuery();
+            int result = 0;
+            using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
+            {
+                con.Open();
+                Console.WriteLine("Connection Open");
+                string query = CommonQuery.CreateQuery;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@BlogTitle", title);
+                cmd.Parameters.AddWithValue("@BlogAuthor", author);
+                cmd.Parameters.AddWithValue("@BlogContent", content);
+                result = cmd.ExecuteNonQuery();
 
-            con.Close();
+                con.Close();
+            }
+
             string message = result > 0 ? "Saving Successful" : "Saving Failed";
             Console.WriteLine(message);
         }
@@ -71,30 +77,33 @@ This day commemorates a significant milestone in human history:";
             string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
 This day commemorates a significant milestone in human history:";
             string message = string.Empty;
-            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
-            con.Open();
-            Console.WriteLine("Connection Open");
-
-            #region 💕 Check Data 💕
-
-            bool data = GetDataById(blogId);
-            if (!data)
+            int result = 0;
+            using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
-                message = "There is no Data!";
-                goto Result;
+                con.Open();
+                Console.WriteLine("Connection Open");
+
+                #region 💕 Check Data 💕
+
+                bool data = GetDataById(blogId);
+                if (!data)
+                {
+                    message = "There is no Data!";
+                    goto Result;
+                }
+
+                #endregion
+
+                string query = CommonQuery.UpdateQuery;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@BlogId", blogId);
+                cmd.Parameters.AddWithValue("@BlogTitle", title);
+                cmd.Parameters.AddWithValue("@BlogAuthor", author);
+                cmd.Parameters.AddWithValue("@BlogContent", content);
+                result = cmd.ExecuteNonQuery();
+                con.Close();
             }
 
-            #endregion
-
-            string query = CommonQuery.UpdateQuery;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@BlogId", blogId);
-            cmd.Parameters.AddWithValue("@BlogTitle", title);
-            cmd.Parameters.AddWithValue("@BlogAuthor", author);
-            cmd.Parameters.AddWithValue("@BlogContent", content);
-            int result = cmd.ExecuteNonQuery();
-
-            con.Close();
             message = result > 0 ? "Update Successful" : "Update Failed";
             Result:
             Console.WriteLine(message);
@@ -104,27 +113,31 @@ This day commemorates a significant milestone in human history:";
         {
             string blogId = "1";
             string message = string.Empty;
-            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
-            con.Open();
-            Console.WriteLine("Connection Open");
-
-            #region 💕 Check Data 💕
-
-            bool data = GetDataById(blogId);
-            if (!data)
+            int result = 0;
+            using (SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString))
             {
-                message = "There is no Data!";
-                goto Result;
+                con.Open();
+                Console.WriteLine("Connection Open");
+
+                #region 💕 Check Data 💕
+
+                bool data = GetDataById(blogId);
+                if (!data)
+                {
+                    message = "There is no Data!";
+                    goto Result;
+                }
+
+                #endregion
+
+                string query = CommonQuery.DeleteQuery;
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@BlogId", blogId);
+                result = cmd.ExecuteNonQuery();
+
+                con.Close();
             }
 
-            #endregion
-
-            string query = CommonQuery.DeleteQuery;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@BlogId", blogId);
-            int result = cmd.ExecuteNonQuery();
-
-            con.Close();
             message = result > 0 ? "Delete Successful" : "Delete Failed";
             Result:
             Console.WriteLine(message);
@@ -132,7 +145,7 @@ This day commemorates a significant milestone in human history:";
 
         public bool GetDataById(string blogId)
         {
-            SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString);
+            using SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
             string query = CommonQuery.GetDataById;
@@ -141,7 +154,9 @@ This day commemorates a significant milestone in human history:";
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
+            con.Close();
             if (dt.Rows.Count == 0) return false;
+
             return true;
         }
     }
