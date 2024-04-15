@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
+using MODotNetCore.ConsoleApp.Model;
 
 namespace MODotNetCore.ConsoleApp
 {
@@ -69,17 +70,25 @@ This day commemorates a significant milestone in human history:";
 
         public void Update()
         {
-            string blogId = "1";
-            string title = "International Day of Human Space";
-            string author = "David Mamama";
-            string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
-This day commemorates a significant milestone in human history:";
+            int blogId = 0;
             string message = string.Empty;
             int result = 0;
+
+            Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
+            string commandInput = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(commandInput))
+            {
+                Console.WriteLine("\nYou have to type an Id.\n");
+                Delete();
+            }
+            Common common = new Common();
+            blogId = int.Parse(commandInput);
+
+            if (blogId == 0) common.GetUserCommand();
+
             using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
-                con.Open();
-                Console.WriteLine("Connection Open \n\n");
 
                 #region 💕 Check Data 💕
 
@@ -92,12 +101,36 @@ This day commemorates a significant milestone in human history:";
 
                 #endregion
 
+                BlogModel newBlog = new BlogModel();
+
+                while (string.IsNullOrEmpty(newBlog.BlogTitle))
+                {
+                    Console.WriteLine("Please enter Blog Title");
+                    newBlog.BlogTitle = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogAuthor))
+                {
+                    Console.WriteLine("Please enter Blog Author");
+                    newBlog.BlogAuthor = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogContent))
+                {
+                    Console.WriteLine("Please enter Blog Content");
+                    newBlog.BlogContent = Console.ReadLine()!;
+                }
+
+                con.Open();
+                Console.WriteLine("Connection Open \n\n");
+
+
                 string query = CommonQuery.UpdateQuery;
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogId", blogId);
-                cmd.Parameters.AddWithValue("@BlogTitle", title);
-                cmd.Parameters.AddWithValue("@BlogAuthor", author);
-                cmd.Parameters.AddWithValue("@BlogContent", content);
+                cmd.Parameters.AddWithValue("@BlogTitle", newBlog.BlogTitle);
+                cmd.Parameters.AddWithValue("@BlogAuthor", newBlog.BlogAuthor);
+                cmd.Parameters.AddWithValue("@BlogContent", newBlog.BlogContent);
                 result = cmd.ExecuteNonQuery();
                 message = result > 0 ? "Update Successful" : "Update Failed";
                 Result:
@@ -107,18 +140,31 @@ This day commemorates a significant milestone in human history:";
                 con.Close();
             }
 
-
         }
 
         public void Delete()
         {
-            string blogId = "1";
+            int blogId = 0;
             string message = string.Empty;
             int result = 0;
+
+            Console.WriteLine("\n\nPlease type the Id of the record would like to Delete. Type 0 to return to main menu.\n\n");
+            string commandInput = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(commandInput))
+            {
+                Console.WriteLine("\nYou have to type an Id.\n");
+                Delete();
+            }
+            Common common = new Common();
+            blogId = int.Parse(commandInput);
+
+            if (blogId == 0) common.GetUserCommand();
+
             using (SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open \n\n");
+                Console.WriteLine("Connection Open. \n\n");
 
                 #region 💕 Check Data 💕
 
@@ -144,11 +190,52 @@ This day commemorates a significant milestone in human history:";
             }
         }
 
-        public bool GetDataById(string blogId)
+        public bool SelectDataById()
         {
+            int blogId = 0;
+            Console.WriteLine("\n\nPlease type the Id of the record would like to Select. Type 0 to return to main menu.\n\n");
+            string commandInput = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(commandInput))
+            {
+                Console.WriteLine("\nYou have to type an Id.\n");
+                Delete();
+            }
+            Common common = new Common();
+            blogId = int.Parse(commandInput);
+
+            if (blogId == 0) common.GetUserCommand();
+
             using SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString);
             con.Open();
             Console.WriteLine("Connection Open");
+            string query = CommonQuery.GetDataById;
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@blogId", blogId);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            if (dt.Rows.Count == 0) return false;
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                Console.WriteLine("Blog Id => " + dr["BlogId"]);
+                Console.WriteLine("Blog Title => " + dr["BlogTitle"]);
+                Console.WriteLine("Blog Author => " + dr["BlogAuthor"]);
+                Console.WriteLine("Blog Content => " + dr["BlogContent"]);
+            }
+            Console.ReadLine();
+            Console.Clear();
+            con.Close();
+
+            return true;
+        }
+
+        public bool GetDataById(int blogId)
+        {
+            using SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString);
+            con.Open();
+            Console.WriteLine("Connection Open. \n\n");
             string query = CommonQuery.GetDataById;
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@blogId", blogId);
