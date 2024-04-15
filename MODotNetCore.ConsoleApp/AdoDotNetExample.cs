@@ -43,20 +43,18 @@ namespace MODotNetCore.ConsoleApp
 
         public void Create()
         {
-            string title = "Heal The World";
-            string author = "Jsamine Dylan";
-            string content = @"12th April marks the International Day for Human Space Flight, observed worldwide. 
-This day commemorates a significant milestone in human history:";
             int result = 0;
             using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open\n\n");
+                Console.WriteLine("Connection Open \n\n");
+                BlogModel newBlog = GetBlogData();
+
                 string query = CommonQuery.CreateQuery;
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BlogTitle", title);
-                cmd.Parameters.AddWithValue("@BlogAuthor", author);
-                cmd.Parameters.AddWithValue("@BlogContent", content);
+                cmd.Parameters.AddWithValue("@BlogTitle", newBlog.BlogTitle);
+                cmd.Parameters.AddWithValue("@BlogAuthor", newBlog.BlogAuthor);
+                cmd.Parameters.AddWithValue("@BlogContent", newBlog.BlogContent);
                 result = cmd.ExecuteNonQuery();
 
                 string message = result > 0 ? "Saving Successful" : "Saving Failed";
@@ -101,29 +99,10 @@ This day commemorates a significant milestone in human history:";
 
                 #endregion
 
-                BlogModel newBlog = new BlogModel();
-
-                while (string.IsNullOrEmpty(newBlog.BlogTitle))
-                {
-                    Console.WriteLine("Please enter Blog Title");
-                    newBlog.BlogTitle = Console.ReadLine()!;
-                }
-
-                while (string.IsNullOrEmpty(newBlog.BlogAuthor))
-                {
-                    Console.WriteLine("Please enter Blog Author");
-                    newBlog.BlogAuthor = Console.ReadLine()!;
-                }
-
-                while (string.IsNullOrEmpty(newBlog.BlogContent))
-                {
-                    Console.WriteLine("Please enter Blog Content");
-                    newBlog.BlogContent = Console.ReadLine()!;
-                }
-
                 con.Open();
                 Console.WriteLine("Connection Open \n\n");
 
+                BlogModel newBlog = GetBlogData();
 
                 string query = CommonQuery.UpdateQuery;
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -246,6 +225,30 @@ This day commemorates a significant milestone in human history:";
             if (dt.Rows.Count == 0) return false;
 
             return true;
+        }
+
+        public BlogModel GetBlogData()
+        {
+            BlogModel newBlog = new BlogModel();
+
+            while (string.IsNullOrEmpty(newBlog.BlogTitle))
+            {
+                Console.WriteLine("Please enter Blog Title");
+                newBlog.BlogTitle = Console.ReadLine()!;
+            }
+
+            while (string.IsNullOrEmpty(newBlog.BlogAuthor))
+            {
+                Console.WriteLine("Please enter Blog Author");
+                newBlog.BlogAuthor = Console.ReadLine()!;
+            }
+
+            while (string.IsNullOrEmpty(newBlog.BlogContent))
+            {
+                Console.WriteLine("Please enter Blog Content");
+                newBlog.BlogContent = Console.ReadLine()!;
+            }
+            return newBlog;
         }
     }
 }
