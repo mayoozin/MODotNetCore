@@ -16,7 +16,7 @@ namespace MODotNetCore.ConsoleApp
             {
                 Console.WriteLine("\n\nMAIN MENU");
                 Console.WriteLine("\nWhat would you like to do?");
-                Console.WriteLine("\nType 0 to Close Application.");
+                Console.WriteLine("\nType 0 to Close Application.\n ");
                 Console.WriteLine("Type 1 to View All Records.\n");
                 Console.WriteLine("Type 2 to Create.\n");
                 Console.WriteLine("Type 3 to Update.\n");
@@ -26,7 +26,7 @@ namespace MODotNetCore.ConsoleApp
                 string commandInput = Console.ReadLine();
                 if (string.IsNullOrEmpty(commandInput))
                 {
-                    Console.WriteLine("\nInvalid Command. Please choose an option\n");
+                    Console.WriteLine("\n Invalid Command. Please choose an option\n");
                     continue;
                 }
                 int command = Convert.ToInt32(commandInput);
