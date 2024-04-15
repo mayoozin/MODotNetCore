@@ -86,7 +86,7 @@ internal class Program
         Action:
         AdoDotNetExample adoDotNetExample = new();
         adoDotNetExample.Read();
-        // adoDotNetExample.Create();
+        //adoDotNetExample.Create();
         //adoDotNetExample.Update();
         //adoDotNetExample.Delete();
 
