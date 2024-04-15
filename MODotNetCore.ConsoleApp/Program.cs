@@ -84,13 +84,16 @@ internal class Program
 
         Console.WriteLine("Hello, From CRUD !");
         Action:
-        AdoDotNetExample adoDotNetExample = new();
-        adoDotNetExample.Read();
-        //adoDotNetExample.Create();
-        //adoDotNetExample.Update();
-        //adoDotNetExample.Delete();
+        Common common = new Common();
+        common.GetUserCommand();
 
-        Console.ReadLine();
+        //AdoDotNetExample adoDotNetExample = new();
+        //adoDotNetExample.Read();
+        ////adoDotNetExample.Create();
+        ////adoDotNetExample.Update();
+        ////adoDotNetExample.Delete();
+
+        //Console.ReadLine();
         Environment.Exit(0);
     }
 }
