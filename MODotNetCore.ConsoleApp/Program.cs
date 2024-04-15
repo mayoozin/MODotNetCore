@@ -1,14 +1,96 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using MODotNetCore.ConsoleApp;
-using System.Data;
-using System.Data.SqlClient;
+using MODotNetCore.ConsoleApp.Model;
 
-Console.WriteLine("Hello, World!");
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        bool successfull = false;
+        bool isRegister = false;
+        var arrUsers = new Users[]
+        {
+            new Users("mayoo","123"),
+            new Users("DotNetTraining","123")
+        };
 
-AdoDotNetExample adoDotNetExample = new();
-//adoDotNetExample.Read();
-adoDotNetExample.Create();
-//adoDotNetExample.Update();
-//adoDotNetExample.Delete();
+        Console.WriteLine("---Welcome My Console Channel ---- \n\n");
+        Console.WriteLine("--- Login 1 && Register 2 ---- \n\n");
 
-Console.ReadLine();
+        Start:
+        if (isRegister)
+        {
+            Console.WriteLine("---You can login! Please Press 1 ---- \n\n");
+        }
+        var input = Console.ReadLine();
+        if (input != "1" && input != "2")
+        {
+            return;
+        }
+
+        while (!successfull || isRegister)
+        {
+            if (input == "1")
+            {
+                Console.WriteLine("Write your username:");
+                var username = Console.ReadLine();
+                Console.WriteLine("Enter your password:");
+                var password = Console.ReadLine();
+
+                foreach (Users user in arrUsers)
+                {
+                    if (username == user.UserName && password == user.Password)
+                    {
+                        Console.WriteLine("\n\n __________You have successfully logged in_____________ !!! \n\n");
+                        //Console.ReadLine();
+                        successfull = true;
+                        goto Action;
+                        //break;
+                    }
+                    else successfull = false;
+                }
+
+                if (!successfull)
+                {
+                    Console.WriteLine("Your username or password is incorect, try again !!!");
+                }
+
+            }
+
+            else if (input == "2")
+            {
+
+                Console.WriteLine("Enter your username:");
+                var userName = Console.ReadLine();
+
+                Console.WriteLine("Enter your password:");
+                var password = Console.ReadLine();
+
+                Array.Resize(ref arrUsers, arrUsers.Length + 1);
+                arrUsers[arrUsers.Length - 1] = new Users(username: userName, password: password);
+                Console.WriteLine("____Register Successfully____ \n\n");
+                successfull = true;
+                isRegister = true;
+                goto Start;
+
+            }
+            else
+            {
+                Console.WriteLine("Try again !!!");
+                break;
+            }
+
+        }
+
+        Console.WriteLine("Hello, From CRUD !");
+        Action:
+        AdoDotNetExample adoDotNetExample = new();
+        adoDotNetExample.Read();
+        // adoDotNetExample.Create();
+        //adoDotNetExample.Update();
+        //adoDotNetExample.Delete();
+
+        Console.ReadLine();
+        Environment.Exit(0);
+    }
+}
