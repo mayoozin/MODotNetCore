@@ -27,8 +27,6 @@ namespace MODotNetCore.ConsoleApp
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                con.Close();
-
                 foreach (DataRow dr in dt.Rows)
                 {
                     Console.WriteLine("Blog Id => " + dr["BlogId"]);
@@ -36,6 +34,9 @@ namespace MODotNetCore.ConsoleApp
                     Console.WriteLine("Blog Author => " + dr["BlogAuthor"]);
                     Console.WriteLine("Blog Content => " + dr["BlogContent"]);
                 }
+                Console.ReadLine();
+                Console.Clear();
+                con.Close();
             }
         }
 
@@ -57,11 +58,13 @@ This day commemorates a significant milestone in human history:";
                 cmd.Parameters.AddWithValue("@BlogContent", content);
                 result = cmd.ExecuteNonQuery();
 
+                string message = result > 0 ? "Saving Successful" : "Saving Failed";
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
                 con.Close();
             }
 
-            string message = result > 0 ? "Saving Successful" : "Saving Failed";
-            Console.WriteLine(message);
         }
 
         public void Update()
@@ -96,12 +99,15 @@ This day commemorates a significant milestone in human history:";
                 cmd.Parameters.AddWithValue("@BlogAuthor", author);
                 cmd.Parameters.AddWithValue("@BlogContent", content);
                 result = cmd.ExecuteNonQuery();
+                message = result > 0 ? "Update Successful" : "Update Failed";
+                Result:
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
                 con.Close();
             }
 
-            message = result > 0 ? "Update Successful" : "Update Failed";
-            Result:
-            Console.WriteLine(message);
+
         }
 
         public void Delete()
@@ -129,13 +135,13 @@ This day commemorates a significant milestone in human history:";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogId", blogId);
                 result = cmd.ExecuteNonQuery();
-
+                message = result > 0 ? "Delete Successful" : "Delete Failed";
+                Result:
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
                 con.Close();
             }
-
-            message = result > 0 ? "Delete Successful" : "Delete Failed";
-            Result:
-            Console.WriteLine(message);
         }
 
         public bool GetDataById(string blogId)
