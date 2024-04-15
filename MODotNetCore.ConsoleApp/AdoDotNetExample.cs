@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MODotNetCore.ConsoleApp
 {
@@ -24,7 +19,7 @@ namespace MODotNetCore.ConsoleApp
             using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open");
+                Console.WriteLine("____Connection Open_____\n\n");
 
                 string query = CommonQuery.SelectQuery;
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -54,7 +49,7 @@ This day commemorates a significant milestone in human history:";
             using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open");
+                Console.WriteLine("Connection Open\n\n");
                 string query = CommonQuery.CreateQuery;
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogTitle", title);
@@ -81,7 +76,7 @@ This day commemorates a significant milestone in human history:";
             using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open");
+                Console.WriteLine("Connection Open \n\n");
 
                 #region 💕 Check Data 💕
 
@@ -117,7 +112,7 @@ This day commemorates a significant milestone in human history:";
             using (SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString))
             {
                 con.Open();
-                Console.WriteLine("Connection Open");
+                Console.WriteLine("Connection Open \n\n");
 
                 #region 💕 Check Data 💕
 
