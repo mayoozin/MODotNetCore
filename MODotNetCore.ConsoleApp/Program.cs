@@ -1,10 +1,26 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using MODotNetCore.ConsoleApp;
+using Microsoft.Extensions.Configuration;
+using MODotNetCore.ConsoleApp.Commons;
 using MODotNetCore.ConsoleApp.Model;
+using MODotNetCore.ConsoleApp.Services;
 
 internal class Program
 {
+    private static IConfiguration? _iconfiguration;
     private static void Main(string[] args)
+    {
+        //GetAppSettingsFile();
+        UserAuth();
+        Environment.Exit(0);
+    }
+    static void GetAppSettingsFile()
+    {
+        var builder = new ConfigurationBuilder()
+                             .SetBasePath(Directory.GetCurrentDirectory())
+                             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+        _iconfiguration = builder.Build();
+    }
+    static void UserAuth()
     {
         bool successfull = false;
         bool isRegister = false;
@@ -84,16 +100,7 @@ internal class Program
 
         Console.WriteLine("Hello, From CRUD !");
         Action:
-        Common common = new Common();
+        Common common = new();
         common.GetUserCommand();
-
-        //AdoDotNetExample adoDotNetExample = new();
-        //adoDotNetExample.Read();
-        ////adoDotNetExample.Create();
-        ////adoDotNetExample.Update();
-        ////adoDotNetExample.Delete();
-
-        //Console.ReadLine();
-        Environment.Exit(0);
     }
 }
