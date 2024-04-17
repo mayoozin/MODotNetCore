@@ -1,24 +1,23 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using MODotNetCore.ConsoleApp.Model;
+using MODotNetCore.ConsoleApp.Commons;
+using MODotNetCore.ConsoleApp.Commons.Queries;
+using MODotNetCore.ConsoleApp.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace MODotNetCore.ConsoleApp
 {
-    internal class AdoDotNetExample
+    public class AdoDotNetExample
     {
-        SqlConnectionStringBuilder _sqlConnectionStringBuilder = new SqlConnectionStringBuilder
-        {
-            DataSource = "DESKTOP-QIPPQBI\\SQLEXPRESS",
-            InitialCatalog = "DotNetTrainingBatch4",
-            UserID = "sa",
-            Password = "sasa@123"
-        };
-
+        DbConnectionServices connectionServices = new DbConnectionServices();
+        string? _connectionString;
         public void Read()
         {
+            _connectionString = connectionServices.GetConnectionString();
             try
             {
-                using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
+                using (SqlConnection con = new(_connectionString))
                 {
                     con.Open();
                     Console.WriteLine("____Connection Open_____\n\n");
@@ -50,10 +49,11 @@ namespace MODotNetCore.ConsoleApp
 
         public void Create()
         {
+            _connectionString = connectionServices.GetConnectionString();
             int result = 0;
             try
             {
-                using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
+                using (SqlConnection con = new(_connectionString))
                 {
                     con.Open();
                     Console.WriteLine("Connection Open \n\n");
@@ -82,6 +82,7 @@ namespace MODotNetCore.ConsoleApp
 
         public void Update()
         {
+            _connectionString = connectionServices.GetConnectionString();
             int blogId = 0;
             string message = string.Empty;
             int result = 0;
@@ -100,7 +101,7 @@ namespace MODotNetCore.ConsoleApp
 
                 if (blogId == 0) common.GetUserCommand();
 
-                using (SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString))
+                using (SqlConnection con = new(_connectionString))
                 {
 
                     #region 💕 Check Data 💕
@@ -143,6 +144,7 @@ namespace MODotNetCore.ConsoleApp
 
         public void Delete()
         {
+            _connectionString = connectionServices.GetConnectionString();
             int blogId = 0;
             string message = string.Empty;
             int result = 0;
@@ -161,7 +163,7 @@ namespace MODotNetCore.ConsoleApp
 
                 if (blogId == 0) common.GetUserCommand();
 
-                using (SqlConnection con = new SqlConnection(_sqlConnectionStringBuilder.ConnectionString))
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     con.Open();
                     Console.WriteLine("Connection Open. \n\n");
@@ -199,7 +201,7 @@ namespace MODotNetCore.ConsoleApp
         public bool SelectDataById()
         {
             int blogId = 0;
-
+            _connectionString = connectionServices.GetConnectionString();
             try
             {
                 Console.WriteLine("\n\nPlease type the Id of the record would like to Select. Type 0 to return to main menu.\n\n");
@@ -215,7 +217,7 @@ namespace MODotNetCore.ConsoleApp
 
                 if (blogId == 0) common.GetUserCommand();
 
-                using SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString);
+                using SqlConnection con = new(_connectionString);
                 con.Open();
                 Console.WriteLine("Connection Open");
                 string query = CommonQuery.GetDataById;
@@ -248,9 +250,10 @@ namespace MODotNetCore.ConsoleApp
 
         public bool GetDataById(int blogId)
         {
+            _connectionString = connectionServices.GetConnectionString();
             try
             {
-                using SqlConnection con = new(_sqlConnectionStringBuilder.ConnectionString);
+                using SqlConnection con = new(_connectionString);
                 con.Open();
                 Console.WriteLine("Connection Open. \n\n");
                 string query = CommonQuery.GetDataById;
