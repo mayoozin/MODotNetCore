@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MODotNetCore.ConsoleApp.Model
 {
-    internal class BlogModel
+    public class BlogModel
     {
         public string BlogId { get; set; }
         public string BlogTitle { get; set; }
