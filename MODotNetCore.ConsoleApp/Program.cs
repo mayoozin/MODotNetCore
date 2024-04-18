@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using MODotNetCore.ConsoleApp.Commons;
 using MODotNetCore.ConsoleApp.Model;
-using MODotNetCore.ConsoleApp.Services;
 
 internal class Program
 {

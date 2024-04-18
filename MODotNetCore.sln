@@ -3,12 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleApp", "MODotNetCore.ConsoleApp\MODotNetCore.ConsoleApp.csproj", "{1BCD9739-3EE6-495C-8862-01373A028F63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleApp", "MODotNetCore.ConsoleApp\MODotNetCore.ConsoleApp.csproj", "{1BCD9739-3EE6-495C-8862-01373A028F63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{FA7AC83E-7E8E-47E6-B5B2-D0B1E1FCCC76}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +24,14 @@ Global
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
