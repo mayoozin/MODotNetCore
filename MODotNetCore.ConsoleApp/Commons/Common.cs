@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MODotNetCore.ConsoleApp.DapperExample;
+using MODotNetCore.ConsoleApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +12,12 @@ namespace MODotNetCore.ConsoleApp.Commons
 {
     public class Common
     {
+        DbConnectionServices connectionServices = new DbConnectionServices();
         public void GetUserCommand()
         {
-            AdoDotNetExample adoDotNetExample = new AdoDotNetExample();
+            //AdoDotNetExample dotNetExample = new AdoDotNetExample();
+            DapperServices dotNetExample = new DapperServices(connectionServices);
+
             bool closeApp = false;
             while (closeApp == false)
             {
@@ -37,19 +43,19 @@ namespace MODotNetCore.ConsoleApp.Commons
                         closeApp = true;
                         break;
                     case 1:
-                        adoDotNetExample.Read();
+                        dotNetExample.Read();
                         break;
                     case 2:
-                        adoDotNetExample.Create();
+                        dotNetExample.Create();
                         break;
                     case 3:
-                        adoDotNetExample.Update();
+                        dotNetExample.Update();
                         break;
                     case 4:
-                        adoDotNetExample.Delete();
+                        dotNetExample.Delete();
                         break;
                     case 5:
-                        adoDotNetExample.SelectDataById();
+                        dotNetExample.SelectDataById();
                         break;
                     // ...
                     default:
