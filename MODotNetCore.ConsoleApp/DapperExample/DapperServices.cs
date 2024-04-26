@@ -103,7 +103,15 @@ namespace MODotNetCore.ConsoleApp.DapperExample
             using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
             try
             {
+                Console.WriteLine("Connection Open \n\n");
+                BlogModel newBlog = GetBlogData();
 
+                string query = CommonQuery.UpdateQuery;
+                var result = db.Execute(query, newBlog);
+                string message = result > 0 ? "Update Successful" : "Update Failed";
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
             }
             catch (Exception ex)
             {
