@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MODotNetCore.ConsoleApp.Commons;
 using MODotNetCore.ConsoleApp.Commons.Queries;
 using MODotNetCore.ConsoleApp.Model;
 using MODotNetCore.ConsoleApp.Services;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -103,10 +105,24 @@ namespace MODotNetCore.ConsoleApp.DapperExample
             using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
             try
             {
+                int blogId = 0;
+                Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
+                string commandInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(commandInput))
+                {
+                    Console.WriteLine("\nYou have to type an Id.\n");
+                    Delete();
+                }
+                Common common = new Common();
+                blogId = int.Parse(commandInput);
+
+                if (blogId == 0) common.GetUserCommand();
                 Console.WriteLine("Connection Open \n\n");
                 BlogModel newBlog = GetBlogData();
 
                 string query = CommonQuery.UpdateQuery;
+                newBlog.BlogId = blogId.ToString();
                 var result = db.Execute(query, newBlog);
                 string message = result > 0 ? "Update Successful" : "Update Failed";
                 Console.WriteLine(message);
@@ -121,7 +137,41 @@ namespace MODotNetCore.ConsoleApp.DapperExample
         }
         public void Delete()
         {
+            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+            try
+            {
+                int blogId = 0;
+                Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
+                string commandInput = Console.ReadLine();
 
+                if (string.IsNullOrEmpty(commandInput))
+                {
+                    Console.WriteLine("\nYou have to type an Id.\n");
+                    Delete();
+                }
+                Common common = new Common();
+                blogId = int.Parse(commandInput);
+                var item = new BlogModel
+                {
+                    BlogId = blogId.ToString()
+                };
+
+                if (blogId == 0) common.GetUserCommand();
+
+                Console.WriteLine("Connection Open \n\n");
+
+                string query = CommonQuery.DeleteQuery;
+                var result = db.Execute(query, item);
+                string message = result > 0 ? "Delete Successful" : "Delete Failed";
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
         }
         public void SelectDataById()
         {
