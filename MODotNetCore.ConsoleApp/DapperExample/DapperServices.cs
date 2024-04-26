@@ -81,15 +81,16 @@ namespace MODotNetCore.ConsoleApp.DapperExample
 
         public void Create()
         {
-            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
             try
             {
+                using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+
                 Console.WriteLine("Connection Open \n\n");
                 BlogModel newBlog = GetBlogData();
 
                 string query = CommonQuery.CreateQuery;
                 var result = db.Execute(query, newBlog);
-                string message = result > 0 ? "Saving Successful" : "Saving Failed";
+                string message = result > 0 ? "\n\n Saving Successful" : "Saving Failed";
                 Console.WriteLine(message);
                 Console.ReadLine();
                 Console.Clear();
@@ -102,9 +103,10 @@ namespace MODotNetCore.ConsoleApp.DapperExample
         }
         public void Update()
         {
-            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
             try
             {
+                using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+
                 int blogId = 0;
                 Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
                 string commandInput = Console.ReadLine();
@@ -124,7 +126,7 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 string query = CommonQuery.UpdateQuery;
                 newBlog.BlogId = blogId.ToString();
                 var result = db.Execute(query, newBlog);
-                string message = result > 0 ? "Update Successful" : "Update Failed";
+                string message = result > 0 ? "\n\n Update Successful" : "Update Failed";
                 Console.WriteLine(message);
                 Console.ReadLine();
                 Console.Clear();
@@ -137,11 +139,12 @@ namespace MODotNetCore.ConsoleApp.DapperExample
         }
         public void Delete()
         {
-            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+            int blogId = 0;
             try
             {
-                int blogId = 0;
-                Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
+                using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+
+                Console.WriteLine("\n\nPlease type the Id of the record would like to Delete. Type 0 to return to main menu.\n\n");
                 string commandInput = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(commandInput))
@@ -162,7 +165,7 @@ namespace MODotNetCore.ConsoleApp.DapperExample
 
                 string query = CommonQuery.DeleteQuery;
                 var result = db.Execute(query, item);
-                string message = result > 0 ? "Delete Successful" : "Delete Failed";
+                string message = result > 0 ? "\n\n Delete Successful" : "Delete Failed";
                 Console.WriteLine(message);
                 Console.ReadLine();
                 Console.Clear();
