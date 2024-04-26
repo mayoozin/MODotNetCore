@@ -23,7 +23,7 @@ namespace MODotNetCore.ConsoleApp.DapperExample
 
         public void Read()
         {
-            IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
             List<BlogModel> blogs = db.Query(CommonQuery.SelectQuery)
                 .Select(x => new BlogModel()
                 {
@@ -44,14 +44,72 @@ namespace MODotNetCore.ConsoleApp.DapperExample
             Console.ReadLine();
             Console.Clear();
         }
+        public BlogModel GetBlogData()
+        {
+            BlogModel newBlog = new BlogModel();
+
+            try
+            {
+                while (string.IsNullOrEmpty(newBlog.BlogTitle))
+                {
+                    Console.WriteLine("Please enter Blog Title");
+                    newBlog.BlogTitle = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogAuthor))
+                {
+                    Console.WriteLine("Please enter Blog Author");
+                    newBlog.BlogAuthor = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogContent))
+                {
+                    Console.WriteLine("Please enter Blog Content");
+                    newBlog.BlogContent = Console.ReadLine()!;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+
+            return newBlog;
+        }
 
         public void Create()
         {
+            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+            try
+            {
+                Console.WriteLine("Connection Open \n\n");
+                BlogModel newBlog = GetBlogData();
 
+                string query = CommonQuery.CreateQuery;
+                var result = db.Execute(query, newBlog);
+                string message = result > 0 ? "Saving Successful" : "Saving Failed";
+                Console.WriteLine(message);
+                Console.ReadLine();
+                Console.Clear();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
         }
         public void Update()
         {
+            using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
         }
         public void Delete()
         {
