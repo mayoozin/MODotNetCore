@@ -9,19 +9,12 @@ using System.Threading.Tasks;
 
 namespace MODotNetCore.ConsoleApp.EFCoreExamples
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        private readonly DbConnectionServices _dbConnection;
-
-        public AppDbContext(DbConnectionServices dbConnection)
-        {
-            _dbConnection = dbConnection;
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_dbConnection.GetConnectionString());
+            optionsBuilder.UseSqlServer(ConnectionStringServices.connection.ConnectionString);
         }
-        public DbSet<BlogModel> Blog { get; set; }
+        public DbSet<BlogModel> Blogs { get; set; }
     }
 }
