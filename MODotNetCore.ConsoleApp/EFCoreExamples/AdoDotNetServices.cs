@@ -6,9 +6,9 @@ using MODotNetCore.ConsoleApp.Commons.Queries;
 using MODotNetCore.ConsoleApp.Services;
 using Microsoft.Extensions.Configuration;
 
-namespace MODotNetCore.ConsoleApp
+namespace MODotNetCore.ConsoleApp.EFCoreExamples
 {
-    public class AdoDotNetExample
+    public class AdoDotNetServices
     {
         DbConnectionServices connectionServices = new DbConnectionServices();
         string? _connectionString;
