@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MODotNetCore.ConsoleApp.DapperExample;
+using MODotNetCore.ConsoleApp.EFCoreExamples;
+using MODotNetCore.ConsoleApp.Model;
 using MODotNetCore.ConsoleApp.Services;
 using System;
 using System.Collections.Generic;
@@ -63,6 +65,38 @@ namespace MODotNetCore.ConsoleApp.Commons
                         break;
                 }
             }
+        }
+        public static BlogModel GetBlogData()
+        {
+            BlogModel newBlog = new BlogModel();
+
+            try
+            {
+                while (string.IsNullOrEmpty(newBlog.BlogTitle))
+                {
+                    Console.WriteLine("Please enter Blog Title");
+                    newBlog.BlogTitle = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogAuthor))
+                {
+                    Console.WriteLine("Please enter Blog Author");
+                    newBlog.BlogAuthor = Console.ReadLine()!;
+                }
+
+                while (string.IsNullOrEmpty(newBlog.BlogContent))
+                {
+                    Console.WriteLine("Please enter Blog Content");
+                    newBlog.BlogContent = Console.ReadLine()!;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+
+            return newBlog;
         }
     }
 }
