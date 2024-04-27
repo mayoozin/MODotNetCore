@@ -10,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "Calculator\Calculator.csproj", "{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.RestApi", "MODotNetCore.RestApi\MODotNetCore.RestApi.csproj", "{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
