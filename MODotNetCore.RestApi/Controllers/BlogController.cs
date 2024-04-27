@@ -109,7 +109,7 @@ namespace MODotNetCore.RestApi.Controllers
                 message = "Data Not Found!";
                 goto Results;
             }
-            _db.Remove(id);
+            _db.Remove(item);
             var res = _db.SaveChanges();
             message = res > 0 ? "Delete Successful" : "Delete Failed";
 
