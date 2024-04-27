@@ -46,38 +46,6 @@ namespace MODotNetCore.ConsoleApp.DapperExample
             Console.ReadLine();
             Console.Clear();
         }
-        public BlogModel GetBlogData()
-        {
-            BlogModel newBlog = new BlogModel();
-
-            try
-            {
-                while (string.IsNullOrEmpty(newBlog.BlogTitle))
-                {
-                    Console.WriteLine("Please enter Blog Title");
-                    newBlog.BlogTitle = Console.ReadLine()!;
-                }
-
-                while (string.IsNullOrEmpty(newBlog.BlogAuthor))
-                {
-                    Console.WriteLine("Please enter Blog Author");
-                    newBlog.BlogAuthor = Console.ReadLine()!;
-                }
-
-                while (string.IsNullOrEmpty(newBlog.BlogContent))
-                {
-                    Console.WriteLine("Please enter Blog Content");
-                    newBlog.BlogContent = Console.ReadLine()!;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                throw;
-            }
-
-            return newBlog;
-        }
 
         public void Create()
         {
@@ -86,7 +54,7 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
 
                 Console.WriteLine("Connection Open \n\n");
-                BlogModel newBlog = GetBlogData();
+                BlogModel newBlog = Common.GetBlogData();
 
                 string query = CommonQuery.CreateQuery;
                 var result = db.Execute(query, newBlog);
@@ -101,32 +69,37 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 throw;
             }
         }
+
         public void Update()
         {
+            string message = string.Empty;
+            var res = 0;
+            int blogId = 0;
             try
             {
                 using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
 
-                int blogId = 0;
                 Console.WriteLine("\n\nPlease type the Id of the record would like to Update. Type 0 to return to main menu.\n\n");
                 string commandInput = Console.ReadLine();
 
                 if (string.IsNullOrEmpty(commandInput))
                 {
-                    Console.WriteLine("\nYou have to type an Id.\n");
-                    Delete();
+                    message = "\nYou have to type an Id.\n";
+                    goto Result;
                 }
                 Common common = new Common();
                 blogId = int.Parse(commandInput);
 
                 if (blogId == 0) common.GetUserCommand();
                 Console.WriteLine("Connection Open \n\n");
-                BlogModel newBlog = GetBlogData();
+                BlogModel newBlog = Common.GetBlogData();
 
                 string query = CommonQuery.UpdateQuery;
                 newBlog.BlogId = blogId.ToString();
-                var result = db.Execute(query, newBlog);
-                string message = result > 0 ? "\n\n Update Successful" : "Update Failed";
+                res = db.Execute(query, newBlog);
+                message = res > 0 ? "\n\n Update Successful" : "Update Failed";
+
+                Result:
                 Console.WriteLine(message);
                 Console.ReadLine();
                 Console.Clear();
@@ -137,9 +110,12 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 throw;
             }
         }
+
         public void Delete()
         {
             int blogId = 0;
+            string message = string.Empty;
+            var res = 0;
             try
             {
                 using IDbConnection db = new SqlConnection(_dbConnection.GetConnectionString());
@@ -149,8 +125,8 @@ namespace MODotNetCore.ConsoleApp.DapperExample
 
                 if (string.IsNullOrEmpty(commandInput))
                 {
-                    Console.WriteLine("\nYou have to type an Id.\n");
-                    Delete();
+                    message = "\nYou have to type an Id.\n";
+                    goto Result;
                 }
                 Common common = new Common();
                 blogId = int.Parse(commandInput);
@@ -164,8 +140,10 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 Console.WriteLine("Connection Open \n\n");
 
                 string query = CommonQuery.DeleteQuery;
-                var result = db.Execute(query, item);
-                string message = result > 0 ? "\n\n Delete Successful" : "Delete Failed";
+                res = db.Execute(query, item);
+                message = res > 0 ? "\n\n Delete Successful" : "Delete Failed";
+
+                Result:
                 Console.WriteLine(message);
                 Console.ReadLine();
                 Console.Clear();
@@ -176,6 +154,7 @@ namespace MODotNetCore.ConsoleApp.DapperExample
                 throw;
             }
         }
+
         public void SelectDataById()
         {
 
