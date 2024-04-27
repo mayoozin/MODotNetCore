@@ -1,15 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Microsoft.Extensions.Configuration;
 using MODotNetCore.ConsoleApp.Commons;
+using MODotNetCore.ConsoleApp.EFCoreExamples;
 using MODotNetCore.ConsoleApp.Model;
 
 internal class Program
 {
     private static IConfiguration? _iconfiguration;
+
     private static void Main(string[] args)
     {
         //GetAppSettingsFile();
-        UserAuth();
+        //UserAuth();
+        EFCoreServices efCore = new EFCoreServices();
+        efCore.Run();
         Environment.Exit(0);
     }
     static void GetAppSettingsFile()
