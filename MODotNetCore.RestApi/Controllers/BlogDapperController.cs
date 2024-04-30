@@ -6,6 +6,7 @@ using MODotNetCore.RestApi.Services;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -61,6 +62,48 @@ namespace MODotNetCore.RestApi.Controllers
                 }
                 blogs.BlogId = id;
                 var res = db.Execute(CommonQuery.UpdateQuery, blogs);
+                message = res > 0 ? "Update Successful" : "Update Failed";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            Results:
+            return Ok();
+        }
+
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePatch(int id, BlogModel blogs)
+        {
+            string message = string.Empty;
+            string conditions = string.Empty;
+
+            try
+            {
+                using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+
+                var item = db.Query<BlogModel>(CommonQuery.GetDataById, new BlogModel { BlogId = id }).FirstOrDefault();
+                if (item is null)
+                {
+                    message = "Data Not Found!";
+                    goto Results;
+                }
+                if (!string.IsNullOrEmpty(blogs.BlogTitle))
+                {
+                    conditions += " [BlogTitle] = @BlogTitle, ";
+                }
+                if (!string.IsNullOrEmpty(blogs.BlogAuthor))
+                {
+                    conditions += " [BlogAuthor] = @BlogAuthor, ";
+                }
+                if (!string.IsNullOrEmpty(blogs.BlogContent))
+                {
+                    conditions += " [BlogContent] = @BlogContent, ";
+                }
+                blogs.BlogId = id;
+                var res = db.Execute(CommonQuery.UpdateBatch, blogs);
                 message = res > 0 ? "Update Successful" : "Update Failed";
             }
             catch (Exception ex)
