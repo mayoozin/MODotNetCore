@@ -6,6 +6,7 @@ using MODotNetCore.RestApi.Services;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -44,29 +45,31 @@ namespace MODotNetCore.RestApi.Controllers
             return Ok();
         }
 
-        // GET api/<BlogDapperController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<BlogDapperController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<BlogDapperController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id, BlogModel blogs)
         {
-        }
+            try
+            {
+                using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
 
-        // DELETE api/<BlogDapperController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                string message = string.Empty;
+                var item = db.Query<BlogModel>(CommonQuery.GetDataById, new BlogModel { BlogId = id }).FirstOrDefault();
+                if (item is null)
+                {
+                    message = "Data Not Found!";
+                    goto Results;
+                }
+                blogs.BlogId = id;
+                var res = db.Execute(CommonQuery.UpdateQuery, blogs);
+                message = res > 0 ? "Update Successful" : "Update Failed";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            Results:
+            return Ok();
         }
     }
 }
