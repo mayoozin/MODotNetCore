@@ -25,6 +25,25 @@ namespace MODotNetCore.RestApi.Controllers
             return Ok(blogs);
         }
 
+        [HttpPost]
+        public IActionResult Create()
+        {
+            try
+            {
+                using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+                BlogModel newBlog = new BlogModel();
+                string query = CommonQuery.CreateQuery;
+                var result = db.Execute(query, newBlog);
+                string message = result > 0 ? "\n\n Saving Successful" : "Saving Failed";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            return Ok();
+        }
+
         // GET api/<BlogDapperController>/5
         [HttpGet("{id}")]
         public string Get(int id)
