@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using MODotNetCore.ConsoleApp.Commons.Queries;
+using MODotNetCore.RestApi.Model;
+using MODotNetCore.RestApi.Services;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,7 +19,10 @@ namespace MODotNetCore.RestApi.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+            List<BlogModel> blogs = db.Query<BlogModel>(CommonQuery.SelectQuery)
+               .ToList();
+            return Ok(blogs);
         }
 
         // GET api/<BlogDapperController>/5
