@@ -30,5 +30,9 @@ namespace MODotNetCore.ConsoleApp.Commons.Queries
 
         public static string GetDataById = @"SELECT * FROM [dbo].[Tbl_Blog]
       WHERE BlogId=@blogId";
+
+        public static string UpdateBatch = @"UPDATE [dbo].[Tbl_Blog]
+   SET {conditions}
+ WHERE BlogId = @BlogId";
     }
 }
