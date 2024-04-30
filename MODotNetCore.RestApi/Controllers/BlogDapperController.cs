@@ -30,20 +30,21 @@ namespace MODotNetCore.RestApi.Controllers
         [HttpPost]
         public IActionResult Create()
         {
+            string message = string.Empty;
             try
             {
                 using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
                 BlogModel newBlog = new BlogModel();
                 string query = CommonQuery.CreateQuery;
                 var result = db.Execute(query, newBlog);
-                string message = result > 0 ? "\n\n Saving Successful" : "Saving Failed";
+                message = result > 0 ? "\n\n Saving Successful" : "Saving Failed";
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 throw;
             }
-            return Ok();
+            return Ok(message);
         }
 
         [HttpPut("{id}")]
@@ -70,7 +71,7 @@ namespace MODotNetCore.RestApi.Controllers
                 throw;
             }
             Results:
-            return Ok();
+            return Ok(message);
         }
 
 
@@ -112,7 +113,36 @@ namespace MODotNetCore.RestApi.Controllers
                 throw;
             }
             Results:
-            return Ok();
+            return Ok(message);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            string message = string.Empty;
+            var res = 0;
+            try
+            {
+                using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+                var item = db.Query<BlogModel>(CommonQuery.GetDataById, new BlogModel { BlogId = id }).FirstOrDefault();
+                if (item is null)
+                {
+                    message = "Data Not Found!";
+                    goto Results;
+                }
+
+                string query = CommonQuery.DeleteQuery;
+                res = db.Execute(query, item);
+                message = res > 0 ? "\n\n Delete Successful" : "Delete Failed";
+
+                Results:
+                return Ok(message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
         }
     }
 }
