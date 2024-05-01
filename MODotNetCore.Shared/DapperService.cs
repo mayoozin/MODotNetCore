@@ -8,5 +8,6 @@ namespace MODotNetCore.Shared
 {
     public class DapperService
     {
+        private readonly string _connection;
     }
 }
