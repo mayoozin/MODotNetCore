@@ -64,6 +64,23 @@ namespace MODotNetCore.Shared
             return list[0];
         }
 
+        public int Execute(string query, object? parameters = null)
+        {
+            var result = 0;
+            using (SqlConnection con = new SqlConnection(_connection))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                if (parameters is not null)
+                {
+                    cmd.Parameters.AddRange(GetParameters(parameters).ToArray());
+                }
+                result = cmd.ExecuteNonQuery();
+                con.Close();
+            };
+            return result;
+        }
+
         public List<SqlParameter> GetParameters<T>(T? obj)
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
