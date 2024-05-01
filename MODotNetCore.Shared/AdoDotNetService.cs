@@ -63,6 +63,7 @@ namespace MODotNetCore.Shared
             };
             return list[0];
         }
+
         public List<SqlParameter> GetParameters<T>(T? obj)
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
