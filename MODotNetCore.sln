@@ -14,7 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.RestApi", "MODotNetCore.RestApi\MODotNetCore.RestApi.csproj", "{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.RestApi", "MODotNetCore.RestApi\MODotNetCore.RestApi.csproj", "{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.Shared", "MODotNetCore.Shared\MODotNetCore.Shared.csproj", "{1EBDB7BA-5814-4715-9505-109B5F316FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBDB7BA-5814-4715-9505-109B5F316FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBDB7BA-5814-4715-9505-109B5F316FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBDB7BA-5814-4715-9505-109B5F316FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBDB7BA-5814-4715-9505-109B5F316FBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
