@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MODotNetCore.Shared
@@ -20,7 +17,6 @@ namespace MODotNetCore.Shared
         {
             _connection = connection;
         }
-
         public List<T?> Query<T>(string query, object? parameters = null)
         {
             var list = new List<T?>();
@@ -41,7 +37,6 @@ namespace MODotNetCore.Shared
             };
             return list;
         }
-
         public T QueryFirstOrDefault<T>(string query, object? parameters = null)
         {
             var list = new List<T?>();
@@ -63,7 +58,6 @@ namespace MODotNetCore.Shared
             };
             return list[0];
         }
-
         public int Execute(string query, object? parameters = null)
         {
             var result = 0;
@@ -80,7 +74,6 @@ namespace MODotNetCore.Shared
             };
             return result;
         }
-
         public List<SqlParameter> GetParameters<T>(T? obj)
         {
             List<SqlParameter> parameters = new List<SqlParameter>();
@@ -91,4 +84,5 @@ namespace MODotNetCore.Shared
             return parameters;
         }
     }
+
 }

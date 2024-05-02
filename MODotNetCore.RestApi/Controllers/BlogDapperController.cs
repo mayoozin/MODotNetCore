@@ -50,11 +50,12 @@ namespace MODotNetCore.RestApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, BlogModel blogs)
         {
+            string message = string.Empty;
+
             try
             {
                 using IDbConnection db = new SqlConnection(ConnectionStrings.connection.ConnectionString);
 
-                string message = string.Empty;
                 var item = db.Query<BlogModel>(CommonQuery.GetDataById, new BlogModel { BlogId = id }).FirstOrDefault();
                 if (item is null)
                 {
