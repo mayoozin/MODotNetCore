@@ -16,4 +16,8 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MODotNetCore.Shared\MODotNetCore.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
