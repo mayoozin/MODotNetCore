@@ -223,5 +223,44 @@ namespace MODotNetCore.RestApi.Controllers
             return true;
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Delete()
+        {
+            int blogId = 0;
+            string message = string.Empty;
+            int result = 0;
+            try
+            {
+                using SqlConnection _connectionString = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+                _connectionString.Open();
+
+                #region 💕 Check Data 💕
+
+                bool data = GetDataById(blogId);
+                if (!data)
+                {
+                    message = "There is no Data!";
+                    goto Result;
+                }
+
+                #endregion
+
+                string query = CommonQuery.DeleteQuery;
+                SqlCommand cmd = new SqlCommand(query, _connectionString);
+                cmd.Parameters.AddWithValue("@BlogId", blogId);
+                result = cmd.ExecuteNonQuery();
+                message = result > 0 ? "Delete Successful" : "Delete Failed";
+                Result:
+                _connectionString.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            Results:
+            return Ok(message);
+        }
+
     }
 }
