@@ -25,4 +25,12 @@ namespace MODotNetCore.RestApi.Model
         public string BlogAuthor { get; set; }
         public string BlogContent { get; set; }
     }
+
+    public class BlogDataModel
+    {
+        public int BlogId { get; set; }
+        public string? BlogTitle { get; set; }
+        public string? BlogAuthor { get; set; }
+        public string? BlogContent { get; set; }
+    }
 }
