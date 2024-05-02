@@ -15,6 +15,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.RestApi", "MODotNetCore.RestApi\MODotNetCore.RestApi.csproj", "{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B4D69E1-B80A-493C-9891-6FCCD9EB1C54} = {4B4D69E1-B80A-493C-9891-6FCCD9EB1C54}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.Shared", "MODotNetCore.Shared\MODotNetCore.Shared.csproj", "{4B4D69E1-B80A-493C-9891-6FCCD9EB1C54}"
 EndProject
