@@ -105,7 +105,7 @@ namespace MODotNetCore.RestApi.Controllers
                     conditions += " [BlogContent] = @BlogContent, ";
                 }
                 blogs.BlogId = id;
-                var res = db.Execute(CommonQuery.UpdateBatch, blogs);
+                var res = db.Execute(CommonQuery.UpdatePatch, blogs);
                 message = res > 0 ? "Update Successful" : "Update Failed";
             }
             catch (Exception ex)
