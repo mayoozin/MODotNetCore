@@ -86,5 +86,33 @@ namespace MODotNetCore.RestApi.Controllers
             }
             return Ok(item);
         }
+
+        [HttpPost]
+        public IActionResult Create(BlogDataModel newBlog)
+        {
+            string message = string.Empty;
+            int result = 0;
+            try
+            {
+                using SqlConnection _connectionString = new SqlConnection(ConnectionStrings.connection.ConnectionString);
+                _connectionString.Open();
+
+                string query = CommonQuery.CreateQuery;
+                SqlCommand cmd = new SqlCommand(query, _connectionString);
+                cmd.Parameters.AddWithValue("@BlogTitle", newBlog.BlogTitle);
+                cmd.Parameters.AddWithValue("@BlogAuthor", newBlog.BlogAuthor);
+                cmd.Parameters.AddWithValue("@BlogContent", newBlog.BlogContent);
+                result = cmd.ExecuteNonQuery();
+                _connectionString.Close();
+
+                message = result > 0 ? "Saving Successful" : "Saving Failed";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            return Ok(message);
+        }
     }
 }
