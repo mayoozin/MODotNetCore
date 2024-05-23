@@ -30,11 +30,43 @@ namespace MODotNetCore.RestApiWithNLayer.Features.Blog
             var res = _appDbContext.SaveChanges();
             return res;
         }
-        public int UpdateBlog(BlogModel reqModel)
+        public BlogResponseModel UpdateBlog(BlogModel reqModel)
         {
-            _appDbContext.Blogs.Add(reqModel);
+            BlogResponseModel model = new BlogResponseModel();
+            var item = _appDbContext.Blogs.FirstOrDefault(x => x.BlogId == reqModel.BlogId);
+            if (item is null)
+            {
+                model.ErrorMessage = "No data";
+                goto Results;
+            }
+            item.BlogTitle = reqModel.BlogTitle;
+            item.BlogAuthor = reqModel.BlogAuthor;
+            item.BlogContent = reqModel.BlogContent;
+
+            _appDbContext.Blogs.Update(reqModel);
             var res = _appDbContext.SaveChanges();
-            return res;
+            model.SuccessMessage = res > 0 ? "Update Successful" : "Update Failed";
+
+            Results:
+            return model;
+        }
+
+        public BlogResponseModel DeleteBlog(int id)
+        {
+            BlogResponseModel model = new BlogResponseModel();
+            var item = _appDbContext.Blogs.FirstOrDefault(x => x.BlogId == id);
+            if (item is null)
+            {
+                model.ErrorMessage = "No data";
+                goto Results;
+            }
+
+            _appDbContext.Blogs.Remove(item);
+            var res = _appDbContext.SaveChanges();
+            model.SuccessMessage = res > 0 ? "Delete Successful" : "Delete Failed";
+
+            Results:
+            return model;
         }
     }
 }
