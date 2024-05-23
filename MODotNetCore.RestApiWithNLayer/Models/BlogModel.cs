@@ -26,6 +26,12 @@ namespace MODotNetCore.RestApiWithNLayer.Models
         public string BlogContent { get; set; }
     }
 
+    public class BlogResponseModel
+    {
+        public string ErrorMessage { get; set; }
+        public string SuccessMessage { get; set; }
+    }
+
     public class BlogDataModel
     {
         public int BlogId { get; set; }
