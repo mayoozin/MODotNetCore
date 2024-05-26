@@ -6,17 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MODotNetCore.RestApiWithNLayer
+namespace MODotNetCore.RestApiWithNLayer;
+
+public class ConnectionStrings
 {
-    public class ConnectionStrings
+    public static SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder()
     {
-        public static SqlConnectionStringBuilder connection = new SqlConnectionStringBuilder()
-        {
-            DataSource = "DESKTOP-QIPPQBI\\SQLEXPRESS",
-            InitialCatalog = "DotNetTrainingBatch4",
-            UserID = "sa",
-            Password = "sasa@123",
-            TrustServerCertificate = true
-        };
-    }
+        DataSource = "DESKTOP-QIPPQBI\\SQLEXPRESS",
+        InitialCatalog = "DotNetTrainingBatch4",
+        UserID = "sa",
+        Password = "sasa@123",
+        TrustServerCertificate = true
+    };
 }
