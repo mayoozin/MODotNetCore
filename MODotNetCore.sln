@@ -10,10 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "Calculator\Calculator.csproj", "{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorLibrary", "CalculatorLibrary\CalculatorLibrary.csproj", "{EC928067-4FAA-48CD-AA18-796CBC12FBF0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.RestApi", "MODotNetCore.RestApi\MODotNetCore.RestApi.csproj", "{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B4D69E1-B80A-493C-9891-6FCCD9EB1C54} = {4B4D69E1-B80A-493C-9891-6FCCD9EB1C54}
@@ -23,9 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.Shared", "MODo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.RestApiWithNLayer", "MODotNetCore.RestApiWithNLayer\MODotNetCore.RestApiWithNLayer.csproj", "{37758490-E6E1-48E5-9E5E-FCB48F3486A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppHttpClient", "MODotNetCore.ConsoleAppHttpClient\MODotNetCore.ConsoleAppHttpClient.csproj", "{7C1FAB18-AB2A-40CF-9E94-3F52170BFCCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppHttpClient", "MODotNetCore.ConsoleAppHttpClient\MODotNetCore.ConsoleAppHttpClient.csproj", "{7C1FAB18-AB2A-40CF-9E94-3F52170BFCCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppHttpClientExample", "MODotNetCore.ConsoleAppHttpClientExample\MODotNetCore.ConsoleAppHttpClientExample.csproj", "{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppHttpClientExamples", "MODotNetCore.ConsoleAppHttpClientExample\MODotNetCore.ConsoleAppHttpClientExamples.csproj", "{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.PizzaApi", "MODotNetCore.PizzaApi\MODotNetCore.PizzaApi.csproj", "{CB53C7E0-4388-4FBB-8123-0588B586F20B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppRefitExamples", "MODotNetCore.ConsoleAppRefitExamples\MODotNetCore.ConsoleAppRefitExamples.csproj", "{EF8237AF-5607-4F73-908A-406119F45B0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppRestClientExamples", "MODotNetCore.ConsoleAppRestClientExamples\MODotNetCore.ConsoleAppRestClientExamples.csproj", "{F456AD04-220A-4F18-A821-A9C81AEEAE9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +39,6 @@ Global
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BCD9739-3EE6-495C-8862-01373A028F63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2919EFB1-0B67-4FFA-BDF8-EF88B2694C3D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC928067-4FAA-48CD-AA18-796CBC12FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A725BD-BE40-4E8F-8A8D-0CF008CD5C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,6 +59,18 @@ Global
 		{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB53C7E0-4388-4FBB-8123-0588B586F20B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB53C7E0-4388-4FBB-8123-0588B586F20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB53C7E0-4388-4FBB-8123-0588B586F20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB53C7E0-4388-4FBB-8123-0588B586F20B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF8237AF-5607-4F73-908A-406119F45B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF8237AF-5607-4F73-908A-406119F45B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF8237AF-5607-4F73-908A-406119F45B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF8237AF-5607-4F73-908A-406119F45B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
