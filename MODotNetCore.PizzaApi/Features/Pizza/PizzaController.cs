@@ -65,11 +65,6 @@ public class PizzaController : ControllerBase
 
         if (orderRequest.Extras.Length > 0)
         {
-            // select * from Tbl_PizzaExtras where PizzaExtraId in (1,2,3,4)
-            //foreach (var item in orderRequest.Extras)
-            //{
-            //}
-
             var lstExtra = await _appDbContext.PizzaExtras.Where(x => orderRequest.Extras.Contains(x.Id)).ToListAsync();
             total += lstExtra.Sum(x => x.Price);
         }
