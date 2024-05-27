@@ -58,24 +58,24 @@ public class PizzaController : ControllerBase
     }
 
     [HttpPost("Order")]
-    public async Task<IActionResult> OrderAsync(OrderRequest orderRequest)
+    public async Task<IActionResult> OrderAsync(OrderRequest reqModel)
     {
-        var itemPizza = await _appDbContext.Pizzas.FirstOrDefaultAsync(x => x.Id == orderRequest.PizzaId);
+        var itemPizza = await _appDbContext.Pizzas.FirstOrDefaultAsync(x => x.Id == reqModel.PizzaId);
         var total = itemPizza.Price;
 
-        if (orderRequest.Extras.Length > 0)
+        if (reqModel.Extras.Length > 0)
         {
-            var lstExtra = await _appDbContext.PizzaExtras.Where(x => orderRequest.Extras.Contains(x.Id)).ToListAsync();
+            var lstExtra = await _appDbContext.PizzaExtras.Where(x => reqModel.Extras.Contains(x.Id)).ToListAsync();
             total += lstExtra.Sum(x => x.Price);
         }
         var invoiceNo = DateTime.Now.ToString("yyyyMMddHHmmss");
         PizzaOrderModel pizzaOrderModel = new PizzaOrderModel()
         {
-            PizzaId = orderRequest.PizzaId,
+            PizzaId = reqModel.PizzaId,
             PizzaOrderInvoiceNo = invoiceNo,
             TotalAmount = total
         };
-        List<PizzaOrderDetailModel> pizzaExtraModels = orderRequest.Extras.Select(extraId => new PizzaOrderDetailModel
+        List<PizzaOrderDetailModel> pizzaExtraModels = reqModel.Extras.Select(extraId => new PizzaOrderDetailModel
         {
             PizzaExtraId = extraId,
             PizzaOrderInvoiceNo = invoiceNo,
