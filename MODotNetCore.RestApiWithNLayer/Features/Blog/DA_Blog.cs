@@ -30,6 +30,7 @@ public class DA_Blog
         var res = _appDbContext.SaveChanges();
         return res;
     }
+    
     public BlogResponseModel UpdateBlog(BlogModel reqModel)
     {
         BlogResponseModel model = new BlogResponseModel();
