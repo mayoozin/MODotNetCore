@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MODotNetCore.RestApi.EfDbContext;
-using MODotNetCore.RestApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
