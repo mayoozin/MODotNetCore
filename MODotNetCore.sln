@@ -23,11 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppHttp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppHttpClientExamples", "MODotNetCore.ConsoleAppHttpClientExample\MODotNetCore.ConsoleAppHttpClientExamples.csproj", "{1F331921-0F2A-40C3-8FFF-FE30139EFB4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.PizzaApi", "MODotNetCore.PizzaApi\MODotNetCore.PizzaApi.csproj", "{CB53C7E0-4388-4FBB-8123-0588B586F20B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.PizzaApi", "MODotNetCore.PizzaApi\MODotNetCore.PizzaApi.csproj", "{CB53C7E0-4388-4FBB-8123-0588B586F20B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppRefitExamples", "MODotNetCore.ConsoleAppRefitExamples\MODotNetCore.ConsoleAppRefitExamples.csproj", "{EF8237AF-5607-4F73-908A-406119F45B0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppRefitExamples", "MODotNetCore.ConsoleAppRefitExamples\MODotNetCore.ConsoleAppRefitExamples.csproj", "{EF8237AF-5607-4F73-908A-406119F45B0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.ConsoleAppRestClientExamples", "MODotNetCore.ConsoleAppRestClientExamples\MODotNetCore.ConsoleAppRestClientExamples.csproj", "{F456AD04-220A-4F18-A821-A9C81AEEAE9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MODotNetCore.ConsoleAppRestClientExamples", "MODotNetCore.ConsoleAppRestClientExamples\MODotNetCore.ConsoleAppRestClientExamples.csproj", "{F456AD04-220A-4F18-A821-A9C81AEEAE9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MODotNetCore.WinFormsApp", "MODotNetCore.WinFormsApp\MODotNetCore.WinFormsApp.csproj", "{E10FC2F5-78AB-4111-84AD-07EAAA7ECF85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F456AD04-220A-4F18-A821-A9C81AEEAE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E10FC2F5-78AB-4111-84AD-07EAAA7ECF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E10FC2F5-78AB-4111-84AD-07EAAA7ECF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E10FC2F5-78AB-4111-84AD-07EAAA7ECF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E10FC2F5-78AB-4111-84AD-07EAAA7ECF85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
